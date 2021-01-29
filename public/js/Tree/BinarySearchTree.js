@@ -188,29 +188,29 @@ class BinarySearchTree extends Tree {
       parentNode.children[posOfChild].children[1];
   }
   deleteHasBoth(deletedNode) {
-    this.Right = this.getRight(deletedNode);
-    if (!this.hasLeft(this.Right)) {
-      this.makeRedThenYellowThenCallBack(this.Right, () => {
-        deletedNode.text.name = this.Right.text.name;
-        if (this.hasRight(this.Right)) {
+    var Right = this.getRight(deletedNode);
+    if (!this.hasLeft(Right)) {
+      this.makeRedThenYellowThenCallBack(Right, () => {
+        deletedNode.text.name = Right.text.name;
+        if (this.hasRight(Right)) {
           this.deleteHasRight(deletedNode, 1);
         } else {
-          this.deleteNoChild(this.Right);
+          this.deleteNoChild(Right);
         }
         this.removeCursor(deletedNode);
         this.printLastTree();
       });
     } else {
-      this.makeRedThenCallBack(this.Right, () => {
-        this.removeCursor(this.Right);
-        this.getParentMostLeft(this.Right, (parentLeftMost) => {
-          this.LeftMost = this.getLeft(parentLeftMost);
+      this.makeRedThenCallBack(Right, () => {
+        this.removeCursor(Right);
+        this.getParentMostLeft(Right, (parentLeftMost) => {
+          var LeftMost = this.getLeft(parentLeftMost);
           this.removeCursor(deletedNode);
-          deletedNode.text.name = this.LeftMost.text.name;
-          if (this.hasRight(this.LeftMost)) {
-            this.deleteHasRight(this.parent, 0);
+          deletedNode.text.name = LeftMost.text.name;
+          if (this.hasRight(LeftMost)) {
+            this.deleteHasRight(parentLeftMost, 0);
           } else {
-            this.makePsudo(this.LeftMost);
+            this.makePsudo(LeftMost);
           }
           this.printLastTree();
         });
