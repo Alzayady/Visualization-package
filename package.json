@@ -1,0 +1,27 @@
+{
+  "name": "defulat-web-page-master",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "babel-node": "0.0.1-security",
+    "browser-run": "^9.0.0",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "mongoose": "^5.11.13",
+    "nodemon": "^2.0.7",
+    "request": "^2.88.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/register": "^7.12.10"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zayady",
+  "license": "ISC"
+}
