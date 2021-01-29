@@ -20,6 +20,12 @@
     padding: 10px ;
     top:5px;
 }
+#delete{
+    position: relative;
+    border-radius: 25%;
+    padding: 10px ;
+    top:5px;
+}
 #myCanvas{
     width: 2500px;
     height: 2500px;

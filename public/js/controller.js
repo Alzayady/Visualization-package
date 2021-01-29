@@ -37,8 +37,7 @@ class controller {
 }
 
 let controllerObject = new controller();
-// new Treant();
-console.log("contolring object");
+
 add = () => {
   controllerObject.insert();
 };
