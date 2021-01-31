@@ -3,7 +3,7 @@ class controller {
     this.tree = new BinarySearchTree(this);
   }
   makeTreat(callback) {
-    new Treant(this.tree.getWrapperRoot(), callback);
+    new Treant(this.tree.getWrapperRoot(), callback, $);
   }
   insert = () => {
     var value = document.getElementById("text_input").value;
