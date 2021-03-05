@@ -1,7 +1,6 @@
 class Inserter {
   constructor(tree) {
     this.tree = tree;
-    console.log("create inserter ");
   }
   insert(value) {
     this.insertedValue = value;
