@@ -2,6 +2,9 @@ class controller {
   constructor() {
     this.tree = new BinarySearchTree(this);
   }
+  setTree(tree) {
+    this.tree = tree;
+  }
   makeTreat(callback) {
     new Treant(this.tree.getWrapperRoot(), callback, $);
   }

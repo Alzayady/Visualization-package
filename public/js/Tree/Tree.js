@@ -2,6 +2,23 @@ class Tree {
   constructor(controller) {
     this.controller = controller;
   }
+
+  makeRedThenYellowThenCallBack(node, callback) {
+    this.addCursor(node);
+    this.controller.makeTreat(() => {
+      this.addCursorSelected(node);
+      this.controller.makeTreat(() => {
+        callback();
+      });
+    });
+  }
+  makeRedThenCallBack(node, callback) {
+    this.addCursor(node);
+    this.controller.makeTreat(() => {
+      callback();
+    });
+  }
+
   getLeft = (node) => {
     return this.getChildren(node, 0);
   };
@@ -89,5 +106,15 @@ class Tree {
   }
   removeCursor(node) {
     delete node.HTMLclass;
+  }
+  printLastTree() {
+    this.controller.makeTreat(() => this.controller.endProcess());
+  }
+  IsSameValue(node, value) {
+    if (this.IsPsudo(node)) return false;
+    return node.text.name === value;
+  }
+  ShouldGoRight(node, value) {
+    return node.text.name < value;
   }
 }

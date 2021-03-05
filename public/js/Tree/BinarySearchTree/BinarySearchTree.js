@@ -1,67 +1,17 @@
 class BinarySearchTree extends Tree {
   constructor(controller) {
     super(controller);
+    this.Inserter = new Inserter(this);
+    // this.Deleter = new Deleter(this);
   }
 
   // insert //
   insert(value) {
-    this.insertedValue = value;
-    if (!this.root || this.IsPsudo(this.root)) {
-      this.makeRoot();
-      this.printLastTree();
-      return;
-    }
-    this.insert_inner(this.root);
+    this.Inserter.insert(value);
   }
-  makeRoot() {
-    this.root = this.getWrapperNode(this.insertedValue);
-  }
-  insert_inner(node) {
-    this.addCursor(node);
-    this.controller.makeTreat(() => this.propagete(node));
-  }
-  propagete(node) {
-    this.removeCursor(node);
-    if (node.text.name == this.insertedValue) {
-      this.printLastTree();
-    } else if (this.ShouldGoRight(node, this.insertedValue)) {
-      this.goRight(node);
-    } else {
-      this.goLeft(node);
-    }
-  }
-
-  goRight(node) {
-    if (this.hasRight(node)) {
-      this.insert_inner(this.getRight(node));
-    } else {
-      this.makeRightNode(node, this.insertedValue);
-      this.addCursor(this.getRight(node));
-      this.controller.makeTreat(() => {
-        this.removeCursor(this.getRight(node));
-        this.printLastTree();
-      });
-    }
-  }
-  goLeft(node) {
-    if (this.hasLeft(node)) {
-      this.insert_inner(this.getLeft(node));
-    } else {
-      this.makeLeftNode(node, this.insertedValue);
-      this.addCursor(this.getLeft(node));
-      this.controller.makeTreat(() => {
-        this.removeCursor(this.getLeft(node));
-        this.printLastTree();
-      });
-    }
-  }
-
-  printLastTree() {
-    this.controller.makeTreat(() => this.controller.endProcess());
-  }
-  ShouldGoRight(node, value) {
-    return node.text.name < value;
-  }
+  // delete(value) {
+  //   this.Deleter.delete(value);
+  // }
 
   // delete //
   delete(value) {
@@ -96,21 +46,6 @@ class BinarySearchTree extends Tree {
       this.printLastTree();
     }
   }
-  makeRedThenYellowThenCallBack(node, callback) {
-    this.addCursor(node);
-    this.controller.makeTreat(() => {
-      this.addCursorSelected(node);
-      this.controller.makeTreat(() => {
-        callback();
-      });
-    });
-  }
-  makeRedThenCallBack(node, callback) {
-    this.addCursor(node);
-    this.controller.makeTreat(() => {
-      callback();
-    });
-  }
 
   propagateDelete(node) {
     if (this.IsPsudo(node)) {
@@ -135,10 +70,6 @@ class BinarySearchTree extends Tree {
         this.propagateDelete(this.getLeft(node));
       }
     });
-  }
-  IsSameValue(node, value) {
-    if (this.IsPsudo(node)) return false;
-    return node.text.name === value;
   }
   // it gets the parent of deleted node
   // and the positon of the deleted node
