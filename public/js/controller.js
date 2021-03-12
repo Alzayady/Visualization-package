@@ -37,6 +37,9 @@ class controller {
   };
 
   InOrder = () => {
+    if (this.tree.noRoot()) {
+      return;
+    }
     this.disableAll();
     this.tree.InOrderTraverse();
   };
