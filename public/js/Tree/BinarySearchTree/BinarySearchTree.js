@@ -4,6 +4,7 @@ class BinarySearchTree extends Tree {
     this.Inserter = new Inserter(this);
     this.Deleter = new Deleter(this);
     this.Searcher = new Searcher(this);
+    this.InOrder = new InOrder(this);
   }
 
   // insert //
@@ -15,6 +16,9 @@ class BinarySearchTree extends Tree {
   }
   search(value) {
     this.Searcher.search(value);
+  }
+  InOrderTraverse() {
+    this.InOrder.traverse();
   }
 
   // delete //

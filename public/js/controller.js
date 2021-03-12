@@ -35,15 +35,22 @@ class controller {
       this.tree.search(value);
     }
   };
+
+  InOrder = () => {
+    this.disableAll();
+    this.tree.InOrderTraverse();
+  };
   disableAll() {
     document.getElementById("insert").disabled = true;
     document.getElementById("delete").disabled = true;
     document.getElementById("search").disabled = true;
+    document.getElementById("InOrder").disabled = true;
   }
   enableAll() {
     document.getElementById("insert").disabled = false;
     document.getElementById("delete").disabled = false;
     document.getElementById("search").disabled = false;
+    document.getElementById("InOrder").disabled = false;
   }
   endProcess() {
     this.enableAll();
@@ -63,6 +70,12 @@ class controller {
       callback();
     });
   }
+  makeYellowThenCallBack(node, callback) {
+    this.tree.addCursorSelected(node);
+    this.makeTreat(() => {
+      callback();
+    });
+  }
 }
 
 let controllerObject = new controller();
@@ -76,4 +89,7 @@ del = () => {
 };
 search = () => {
   controllerObject.search();
+};
+InOrderTraverse = () => {
+  controllerObject.InOrder();
 };
