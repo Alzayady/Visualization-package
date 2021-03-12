@@ -3,20 +3,8 @@ class Tree {
     this.controller = controller;
   }
 
-  makeRedThenYellowThenCallBack(node, callback) {
-    this.addCursor(node);
-    this.controller.makeTreat(() => {
-      this.addCursorSelected(node);
-      this.controller.makeTreat(() => {
-        callback();
-      });
-    });
-  }
-  makeRedThenCallBack(node, callback) {
-    this.addCursor(node);
-    this.controller.makeTreat(() => {
-      callback();
-    });
+  noRoot() {
+    return this.root === null || this.IsPsudo(this.root);
   }
 
   getLeft = (node) => {

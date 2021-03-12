@@ -37,6 +37,21 @@ class controller {
   endProcess() {
     this.enableAll();
   }
+  makeRedThenYellowThenCallBack(node, callback) {
+    this.tree.addCursor(node);
+    this.makeTreat(() => {
+      this.tree.addCursorSelected(node);
+      this.makeTreat(() => {
+        callback();
+      });
+    });
+  }
+  makeRedThenCallBack(node, callback) {
+    this.tree.addCursor(node);
+    this.makeTreat(() => {
+      callback();
+    });
+  }
 }
 
 let controllerObject = new controller();
