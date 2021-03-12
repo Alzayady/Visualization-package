@@ -15,8 +15,9 @@ class Inserter {
     this.tree.root = this.tree.getWrapperNode(this.insertedValue);
   }
   insert_inner(node) {
-    this.tree.addCursor(node);
-    this.tree.controller.makeTreat(() => this.propagete(node));
+    this.tree.controller.makeRedThenCallBack(node, () => {
+      this.propagete(node);
+    });
   }
   propagete(node) {
     this.tree.removeCursor(node);
@@ -34,8 +35,7 @@ class Inserter {
       this.insert_inner(this.tree.getRight(node));
     } else {
       this.tree.makeRightNode(node, this.insertedValue);
-      this.tree.addCursor(this.tree.getRight(node));
-      this.tree.controller.makeTreat(() => {
+      this.tree.controller.makeRedThenCallBack(this.tree.getRight(node), () => {
         this.tree.removeCursor(this.tree.getRight(node));
         this.tree.printLastTree();
       });
@@ -46,8 +46,7 @@ class Inserter {
       this.insert_inner(this.tree.getLeft(node));
     } else {
       this.tree.makeLeftNode(node, this.insertedValue);
-      this.tree.addCursor(this.tree.getLeft(node));
-      this.tree.controller.makeTreat(() => {
+      this.tree.controller.makeRedThenCallBack(this.tree.getLeft(node), () => {
         this.tree.removeCursor(this.tree.getLeft(node));
         this.tree.printLastTree();
       });
