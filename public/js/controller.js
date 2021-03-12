@@ -26,13 +26,24 @@ class controller {
       this.tree.delete(value);
     }
   };
+  search = () => {
+    var value = document.getElementById("text_input").value;
+    document.getElementById("text_input").value = "";
+    value = parseInt(value);
+    if (value || value === 0) {
+      this.disableAll();
+      this.tree.search(value);
+    }
+  };
   disableAll() {
     document.getElementById("insert").disabled = true;
     document.getElementById("delete").disabled = true;
+    document.getElementById("search").disabled = true;
   }
   enableAll() {
     document.getElementById("insert").disabled = false;
     document.getElementById("delete").disabled = false;
+    document.getElementById("search").disabled = false;
   }
   endProcess() {
     this.enableAll();
@@ -62,4 +73,7 @@ add = () => {
 
 del = () => {
   controllerObject.del();
+};
+search = () => {
+  controllerObject.search();
 };

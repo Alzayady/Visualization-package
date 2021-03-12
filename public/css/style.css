@@ -3,7 +3,7 @@
     position: relative;
     width: 200px;
     height: 30px;
-    left: 350px;
+    left: 400px;
     top: 5px;
 }
 #top{
@@ -14,13 +14,7 @@
     height: 50px;
     top: -4px;
 }
-#insert{
-    position: relative;
-    border-radius: 25%;
-    padding: 10px ;
-    top:5px;
-}
-#delete{
+#insert,#delete,#search{
     position: relative;
     border-radius: 25%;
     padding: 10px ;

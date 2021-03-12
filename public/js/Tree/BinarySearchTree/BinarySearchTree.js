@@ -3,6 +3,7 @@ class BinarySearchTree extends Tree {
     super(controller);
     this.Inserter = new Inserter(this);
     this.Deleter = new Deleter(this);
+    this.Searcher = new Searcher(this);
   }
 
   // insert //
@@ -11,6 +12,9 @@ class BinarySearchTree extends Tree {
   }
   delete(value) {
     this.Deleter.delete(value);
+  }
+  search(value) {
+    this.Searcher.search(value);
   }
 
   // delete //
