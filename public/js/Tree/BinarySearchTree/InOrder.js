@@ -11,6 +11,10 @@ class InOrder {
       }
       callBack();
     };
+    // IS_END is still true if and only if we reach at the very right of the tree
+    // but what about middle nodes which has IS_END = true ?
+    // in this case it will continue proagate to the end and won't go through that branch calling end_function;
+
     this.tree.controller.toggle(node, () => {
       node.removeCursor();
       if (node.has_left()) {
