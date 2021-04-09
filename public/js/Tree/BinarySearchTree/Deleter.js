@@ -5,8 +5,8 @@ class Deleter {
   delete(value) {
     this.deletedValue = value;
     if (this.tree.noRoot()) return;
-    if (this.tree.root.text.name === this.deletedValue) {
-      this.tree.controller.makeRedThenYellowThenCallBack(this.tree.root, () =>
+    if (this.tree.root.get_value() === this.deletedValue) {
+      this.tree.controller.toggle_select(this.tree.root, () =>
         this.deleteRoot()
       );
     } else {
@@ -14,55 +14,46 @@ class Deleter {
     }
   }
   deleteRoot() {
-    if (this.tree.hasTwoChild(this.tree.root)) {
+    if (this.tree.root.hasTwoChild()) {
       this.deleteHasBoth(this.tree.root);
-    } else if (this.tree.hasLeft(this.tree.root)) {
-      this.tree.controller.makeRedThenYellowThenCallBack(
-        this.tree.getLeft(this.tree.root),
-        () => {
-          this.tree.root = this.tree.getLeft(this.tree.root);
-          this.tree.removeCursor(this.tree.root);
-          this.tree.printLastTree();
-        }
-      );
-    } else if (this.tree.hasRight(this.tree.root)) {
-      this.tree.controller.makeRedThenYellowThenCallBack(
-        this.tree.getRight(this.tree.root),
-        () => {
-          this.tree.root = this.tree.getRight(this.tree.root);
-          this.tree.removeCursor(this.tree.root);
-          this.tree.printLastTree();
-        }
-      );
+    } else if (this.tree.root.has_left()) {
+      this.tree.controller.toggle_select(this.tree.root.get_left(), () => {
+        this.tree.root = this.tree.root.get_left();
+        this.tree.root.removeCursor();
+        this.tree.printLastTree();
+      });
+    } else if (this.tree.root.has_right()) {
+      this.tree.controller.toggle_select(this.tree.root.get_right(), () => {
+        this.tree.root = this.tree.root.get_right();
+        this.tree.root.removeCursor();
+        this.tree.printLastTree();
+      });
     } else {
-      this.tree.makePsudo(this.tree.root);
+      this.tree.root = new NullNode();
       this.tree.printLastTree();
     }
   }
 
   propagateDelete(node) {
-    if (this.tree.IsPsudo(node)) {
+    if (node.IsPsudo()) {
       // value does't exist
       this.tree.printLastTree();
       return;
     }
-    this.tree.addCursor(node);
-    this.tree.controller.makeTreat(() => {
-      this.tree.removeCursor(node);
-      if (this.tree.ShouldGoRight(node, this.deletedValue)) {
-        if (
-          this.tree.IsSameValue(this.tree.getRight(node), this.deletedValue)
-        ) {
+    this.tree.controller.toggle(node, () => {
+      node.removeCursor();
+      if (node.ShouldGoRight(this.deletedValue)) {
+        if (node.get_right().get_value() == this.deletedValue) {
           this.deletePos(node, 1);
           return;
         }
-        this.propagateDelete(this.tree.getRight(node));
+        this.propagateDelete(node.get_right());
       } else {
-        if (this.tree.IsSameValue(this.tree.getLeft(node), this.deletedValue)) {
+        if (node.get_left().get_value() == this.deletedValue) {
           this.deletePos(node, 0);
           return;
         }
-        this.propagateDelete(this.tree.getLeft(node));
+        this.propagateDelete(node.get_left());
       }
     });
   }
@@ -70,76 +61,79 @@ class Deleter {
   // and the positon of the deleted node
   // 0 --> left
   // 1 --> right
-  deletePos(parentNode, pos) {
-    this.deletedNode = this.tree.getChildren(parentNode, pos);
-    this.tree.controller.makeRedThenYellowThenCallBack(this.deletedNode, () => {
-      if (
-        this.tree.hasLeft(this.deletedNode) &&
-        this.tree.hasRight(this.deletedNode)
-      ) {
-        this.deleteHasBoth(this.deletedNode);
-      } else if (this.tree.hasLeft(this.deletedNode)) {
-        this.tree.controller.makeRedThenYellowThenCallBack(
-          this.tree.getLeft(this.deletedNode),
-          () => {
-            this.tree.removeCursor(this.tree.getLeft(this.deletedNode));
-            this.tree.removeCursor(this.deletedNode);
-            this.deleteHasLeft(parentNode, pos);
-            this.tree.printLastTree();
-          }
-        );
-      } else if (this.tree.hasRight(this.deletedNode)) {
-        this.tree.controller.makeRedThenYellowThenCallBack(
-          this.tree.getRight(this.deletedNode),
-          () => {
-            this.tree.removeCursor(this.tree.getRight(this.deletedNode));
-            this.tree.removeCursor(this.deletedNode);
-            this.deleteHasRight(parentNode, pos);
-            this.tree.printLastTree();
-          }
-        );
+  deletePos(parent_node, pos) {
+    var deleted_node = null;
+    if (pos == 0) {
+      deleted_node = parent_node.get_left();
+    } else {
+      deleted_node = parent_node.get_right();
+    }
+    this.tree.controller.toggle_select(deleted_node, () => {
+      if (deleted_node.has_left() && deleted_node.has_right()) {
+        this.deleteHasBoth(deleted_node);
+      } else if (deleted_node.has_left()) {
+        this.tree.controller.toggle_select(deleted_node.get_left(), () => {
+          deleted_node.get_left().removeCursor();
+          deleted_node.removeCursor();
+          this.deleteHasLeft(parent_node, pos);
+          this.tree.printLastTree();
+        });
+      } else if (deleted_node.has_right()) {
+        this.tree.controller.toggle_select(deleted_node.get_right(), () => {
+          deleted_node.removeCursor();
+          deleted_node.get_right().removeCursor();
+          this.deleteHasRight(parent_node, pos);
+          this.tree.printLastTree();
+        });
       } else {
-        this.tree.removeCursor(this.deletedNode);
-        this.deleteNoChild(this.deletedNode);
+        deleted_node.removeCursor();
+        if (pos == 0) {
+          parent_node.set_left(new NullNode());
+        } else {
+          parent_node.set_right(new NullNode());
+        }
         this.tree.printLastTree();
       }
     });
   }
-  deleteNoChild(node) {
-    this.tree.makePsudo(node);
+  deleteHasLeft(parent_node, pos_of_child) {
+    if (pos_of_child == 0) {
+      parent_node.set_left(parent_node.get_left().get_left());
+    } else {
+      parent_node.set_right(parent_node.get_right().get_left());
+    }
   }
-  deleteHasLeft(parentNode, posOfChild) {
-    parentNode.children[posOfChild] =
-      parentNode.children[posOfChild].children[0];
+  deleteHasRight(parent_node, pos_of_child) {
+    if (pos_of_child == 0) {
+      parent_node.set_left(parent_node.get_left().get_right());
+    } else {
+      parent_node.set_right(parent_node.get_right().get_right());
+    }
   }
-  deleteHasRight(parentNode, posOfChild) {
-    parentNode.children[posOfChild] =
-      parentNode.children[posOfChild].children[1];
-  }
-  deleteHasBoth(deletedNode) {
-    var Right = this.tree.getRight(deletedNode);
-    if (!this.tree.hasLeft(Right)) {
-      this.tree.controller.makeRedThenYellowThenCallBack(Right, () => {
-        deletedNode.text.name = Right.text.name;
-        if (this.tree.hasRight(Right)) {
-          this.deleteHasRight(deletedNode, 1);
+  deleteHasBoth(deleted_node) {
+    var Right = deleted_node.get_right();
+    if (!Right.has_left()) {
+      this.tree.controller.toggle_select(Right, () => {
+        deleted_node.set_value(Right.get_value());
+        if (Right.has_right()) {
+          this.deleteHasRight(deleted_node, 1);
         } else {
-          this.deleteNoChild(Right);
+          deleted_node.set_right(new NullNode());
         }
-        this.tree.removeCursor(deletedNode);
+        deleted_node.removeCursor();
         this.tree.printLastTree();
       });
     } else {
-      this.tree.controller.makeRedThenCallBack(Right, () => {
-        this.tree.removeCursor(Right);
+      this.tree.controller.toggle(Right, () => {
+        Right.removeCursor();
         this.getParentMostLeft(Right, (parentLeftMost) => {
-          var LeftMost = this.tree.getLeft(parentLeftMost);
-          this.tree.removeCursor(deletedNode);
-          deletedNode.text.name = LeftMost.text.name;
-          if (this.tree.hasRight(LeftMost)) {
+          var LeftMost = parentLeftMost.get_left();
+          deleted_node.removeCursor();
+          deleted_node.set_value(LeftMost.get_value());
+          if (LeftMost.has_right()) {
             this.deleteHasRight(parentLeftMost, 0);
           } else {
-            this.tree.makePsudo(LeftMost);
+            parentLeftMost.set_left(new NullNode());
           }
           this.tree.printLastTree();
         });
@@ -147,19 +141,16 @@ class Deleter {
     }
   }
   getParentMostLeft(node, callback) {
-    if (this.tree.hasLeft(this.tree.getLeft(node))) {
-      this.tree.controller.makeRedThenCallBack(this.tree.getLeft(node), () => {
-        this.tree.removeCursor(this.tree.getLeft(node));
-        this.getParentMostLeft(this.tree.getLeft(node), callback);
+    if (node.get_left().has_left()) {
+      this.tree.controller.toggle(node.get_left(), () => {
+        node.get_left().removeCursor();
+        this.getParentMostLeft(node.get_left(), callback);
       });
     } else {
-      this.tree.controller.makeRedThenYellowThenCallBack(
-        this.tree.getLeft(node),
-        () => {
-          this.tree.removeCursor(this.tree.getLeft(node));
-          callback(node);
-        }
-      );
+      this.tree.controller.toggle_select(node.get_left(), () => {
+        node.get_left().removeCursor();
+        callback(node);
+      });
     }
   }
 }

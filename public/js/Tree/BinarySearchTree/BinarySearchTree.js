@@ -1,6 +1,6 @@
-class BinarySearchTree extends Tree {
+class BinarySearchTree {
   constructor(controller) {
-    super(controller);
+    this.controller = controller;
     this.Inserter = new Inserter(this);
     this.Deleter = new Deleter(this);
     this.Searcher = new Searcher(this);
@@ -20,6 +20,30 @@ class BinarySearchTree extends Tree {
   InOrderTraverse() {
     this.InOrder.traverse();
   }
+  noRoot() {
+    return !this.root || this.root.IsPsudo();
+  }
 
-  // delete //
+  printLastTree() {
+    this.controller.makeTreat(() => this.controller.endProcess());
+  }
+  clearTree() {
+    var bfs = [];
+    bfs.push(this.root);
+    while (bfs.length) {
+      var nextBfs = [];
+      bfs.forEach((node) => {
+        if (node.has_right()) {
+          nextBfs.push(node.get_right());
+        }
+        if (node.has_left()) {
+          nextBfs.push(node.get_left());
+        }
+        node.removeCursor();
+      });
+
+      bfs = nextBfs;
+    }
+    this.printLastTree();
+  }
 }

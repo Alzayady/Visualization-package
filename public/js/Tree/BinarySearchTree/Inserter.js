@@ -4,7 +4,7 @@ class Inserter {
   }
   insert(value) {
     this.insertedValue = value;
-    if (!this.tree.root || this.tree.IsPsudo(this.tree.root)) {
+    if (this.tree.noRoot()) {
       this.makeRoot();
       this.tree.printLastTree();
       return;
@@ -12,18 +12,18 @@ class Inserter {
     this.insert_inner(this.tree.root);
   }
   makeRoot() {
-    this.tree.root = this.tree.getWrapperNode(this.insertedValue);
+    this.tree.root = new Node(this.insertedValue);
   }
   insert_inner(node) {
-    this.tree.controller.makeRedThenCallBack(node, () => {
+    this.tree.controller.toggle(node, () => {
+      node.removeCursor();
       this.propagete(node);
     });
   }
   propagete(node) {
-    this.tree.removeCursor(node);
-    if (node.text.name == this.insertedValue) {
+    if (node.get_value() == this.insertedValue) {
       this.tree.printLastTree();
-    } else if (this.tree.ShouldGoRight(node, this.insertedValue)) {
+    } else if (node.ShouldGoRight(this.insertedValue)) {
       this.goRight(node);
     } else {
       this.goLeft(node);
@@ -31,23 +31,23 @@ class Inserter {
   }
 
   goRight(node) {
-    if (this.tree.hasRight(node)) {
-      this.insert_inner(this.tree.getRight(node));
+    if (node.has_right()) {
+      this.insert_inner(node.get_right());
     } else {
-      this.tree.makeRightNode(node, this.insertedValue);
-      this.tree.controller.makeRedThenCallBack(this.tree.getRight(node), () => {
-        this.tree.removeCursor(this.tree.getRight(node));
+      node.set_right_value(this.insertedValue);
+      this.tree.controller.toggle(node.get_right(), () => {
+        node.get_right().removeCursor();
         this.tree.printLastTree();
       });
     }
   }
   goLeft(node) {
-    if (this.tree.hasLeft(node)) {
-      this.insert_inner(this.tree.getLeft(node));
+    if (node.has_left()) {
+      this.insert_inner(node.get_left());
     } else {
-      this.tree.makeLeftNode(node, this.insertedValue);
-      this.tree.controller.makeRedThenCallBack(this.tree.getLeft(node), () => {
-        this.tree.removeCursor(this.tree.getLeft(node));
+      node.set_left_value(this.insertedValue);
+      this.tree.controller.toggle(node.get_left(), () => {
+        node.get_left().removeCursor();
         this.tree.printLastTree();
       });
     }

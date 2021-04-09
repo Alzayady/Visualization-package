@@ -1,35 +1,36 @@
 class controller {
   constructor() {
     this.tree = new BinarySearchTree(this);
+    this.buttons = ["insert", "delete", "search", "InOrder"];
   }
   setTree(tree) {
     this.tree = tree;
   }
-  makeTreat(callback) {
-    new Treant(this.tree.getWrapperRoot(), callback, $);
-  }
-  insert = () => {
+  get_value() {
     var value = document.getElementById("text_input").value;
     document.getElementById("text_input").value = "";
     value = parseInt(value);
+    return value;
+  }
+  makeTreat(callback) {
+    new Treant(this.tree.root.getWrapperRoot(), callback, $);
+  }
+  insert = () => {
+    var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
       this.tree.insert(value);
     }
   };
   del = () => {
-    var value = document.getElementById("text_input").value;
-    document.getElementById("text_input").value = "";
-    value = parseInt(value);
+    var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
       this.tree.delete(value);
     }
   };
   search = () => {
-    var value = document.getElementById("text_input").value;
-    document.getElementById("text_input").value = "";
-    value = parseInt(value);
+    var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
       this.tree.search(value);
@@ -44,37 +45,37 @@ class controller {
     this.tree.InOrderTraverse();
   };
   disableAll() {
-    document.getElementById("insert").disabled = true;
-    document.getElementById("delete").disabled = true;
-    document.getElementById("search").disabled = true;
-    document.getElementById("InOrder").disabled = true;
+    this.set_buttons(true);
   }
   enableAll() {
-    document.getElementById("insert").disabled = false;
-    document.getElementById("delete").disabled = false;
-    document.getElementById("search").disabled = false;
-    document.getElementById("InOrder").disabled = false;
+    this.set_buttons(false);
+  }
+  set_buttons(value) {
+    this.buttons.forEach((button) => {
+      document.getElementById(button).disabled = value;
+    });
   }
   endProcess() {
     this.enableAll();
   }
-  makeRedThenYellowThenCallBack(node, callback) {
-    this.tree.addCursor(node);
+  toggle_select(node, callback) {
+    node.addCursor();
     this.makeTreat(() => {
-      this.tree.addCursorSelected(node);
+      node.addCursorSelected();
       this.makeTreat(() => {
         callback();
       });
     });
   }
-  makeRedThenCallBack(node, callback) {
-    this.tree.addCursor(node);
+  toggle(node, callback) {
+    node.addCursor();
     this.makeTreat(() => {
       callback();
     });
   }
-  makeYellowThenCallBack(node, callback) {
-    this.tree.addCursorSelected(node);
+
+  select(node, callback) {
+    node.addCursorSelected();
     this.makeTreat(() => {
       callback();
     });

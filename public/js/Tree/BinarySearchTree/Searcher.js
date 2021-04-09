@@ -7,19 +7,21 @@ class Searcher {
       this.tree.printLastTree();
       return;
     }
-    if (this.tree.IsSameValue(node, value)) {
-      this.tree.controller.makeRedThenYellowThenCallBack(node, () => {
-        this.tree.removeCursor(node);
+    if (node.get_value() == value) {
+      this.tree.controller.toggle_select(node, () => {
+        node.removeCursor();
         this.tree.printLastTree();
       });
       return;
     }
-    this.tree.controller.makeRedThenCallBack(node, () => {
-      this.tree.removeCursor(node);
-      if (this.tree.ShouldGoRight(node, value)) {
-        this.search(value, this.tree.getRight(node));
+    this.tree.controller.toggle(node, () => {
+      node.removeCursor();
+      if (node.has_right() && node.ShouldGoRight(value)) {
+        this.search(value, node.get_right());
+      } else if (node.has_left() && !node.ShouldGoRight(value)) {
+        this.search(value, node.get_left());
       } else {
-        this.search(value, this.tree.getLeft(node));
+        this.tree.printLastTree();
       }
     });
   }
