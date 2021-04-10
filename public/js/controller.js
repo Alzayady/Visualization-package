@@ -1,7 +1,14 @@
 class controller {
   constructor() {
     this.tree = new BinarySearchTree(this);
-    this.buttons = ["insert", "delete", "search", "InOrder"];
+    this.buttons = [
+      "insert",
+      "delete",
+      "search",
+      "InOrder",
+      "PreOrder",
+      "PostOrder",
+    ];
   }
   setTree(tree) {
     this.tree = tree;
