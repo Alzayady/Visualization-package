@@ -95,6 +95,11 @@ class controller {
       callback();
     });
   }
+  wait(callback) {
+    this.makeTreat(() => {
+      callback();
+    });
+  }
 
   select(node, callback) {
     node.addCursorSelected();

@@ -10,7 +10,9 @@ class PreOrder {
       }
       callBack();
     };
-    this.tree.controller.select(node, () => {
+    // we can make it in yellow for only one time slice by using
+    // this.tree.controller.selcet(node, ()  , .........
+    this.tree.controller.toggle_select(node, () => {
       if (node.has_left()) {
         this.traverse(
           node.get_left(),

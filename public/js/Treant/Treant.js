@@ -528,7 +528,7 @@
           ) {
             setTimeout(() => {
               callback(self);
-            }, 600);
+            }, 500);
           }
           self.CONFIG.callback.onTreeLoaded.apply(self, [root]);
           this.loaded = true;
