@@ -51,6 +51,14 @@ class controller {
     this.disableAll();
     this.tree.PreOrderTraverse();
   };
+  PostOrder = () => {
+    if (this.tree.noRoot()) {
+      return;
+    }
+    this.disableAll();
+    this.tree.PostOrderTraverse();
+  };
+
   disableAll() {
     this.set_buttons(true);
   }
@@ -106,4 +114,7 @@ InOrderTraverse = () => {
 };
 PreOrderTraverse = () => {
   controllerObject.PreOrder();
+};
+PostOrderTraverse = () => {
+  controllerObject.PostOrder();
 };

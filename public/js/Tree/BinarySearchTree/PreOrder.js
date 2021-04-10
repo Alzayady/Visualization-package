@@ -10,7 +10,6 @@ class PreOrder {
       }
       callBack();
     };
-    console.log(node);
     this.tree.controller.select(node, () => {
       if (node.has_left()) {
         this.traverse(

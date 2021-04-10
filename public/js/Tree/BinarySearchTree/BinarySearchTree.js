@@ -6,6 +6,7 @@ class BinarySearchTree {
     this.Searcher = new Searcher(this);
     this.InOrder = new InOrder(this);
     this.PreOrder = new PreOrder(this);
+    this.PostOrder = new PostOrder(this);
   }
 
   // insert //
@@ -23,6 +24,9 @@ class BinarySearchTree {
   }
   PreOrderTraverse() {
     this.PreOrder.traverse();
+  }
+  PostOrderTraverse() {
+    this.PostOrder.traverse();
   }
 
   noRoot() {
