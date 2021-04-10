@@ -5,6 +5,7 @@ class BinarySearchTree {
     this.Deleter = new Deleter(this);
     this.Searcher = new Searcher(this);
     this.InOrder = new InOrder(this);
+    this.PreOrder = new PreOrder(this);
   }
 
   // insert //
@@ -20,6 +21,10 @@ class BinarySearchTree {
   InOrderTraverse() {
     this.InOrder.traverse();
   }
+  PreOrderTraverse() {
+    this.PreOrder.traverse();
+  }
+
   noRoot() {
     return !this.root || this.root.IsPsudo();
   }

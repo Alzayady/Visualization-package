@@ -28,6 +28,14 @@
     left: 500px;
     top: 5px;
 }
+#PreOrder{
+    position: relative;
+    border-radius: 30%;
+    width: 100px;
+    height: 50px;
+    left: 600px;
+    top: 5px;
+}
 #myCanvas{
     width: 2500px;
     height: 2500px;

@@ -44,6 +44,13 @@ class controller {
     this.disableAll();
     this.tree.InOrderTraverse();
   };
+  PreOrder = () => {
+    if (this.tree.noRoot()) {
+      return;
+    }
+    this.disableAll();
+    this.tree.PreOrderTraverse();
+  };
   disableAll() {
     this.set_buttons(true);
   }
@@ -96,4 +103,7 @@ search = () => {
 };
 InOrderTraverse = () => {
   controllerObject.InOrder();
+};
+PreOrderTraverse = () => {
+  controllerObject.PreOrder();
 };
