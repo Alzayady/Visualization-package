@@ -22,7 +22,9 @@ class InOrder {
   traverse_left(node, callBack) {
     this.traverse(node.get_left(), () => {
       if (node.has_right()) {
-        this.traverse_right(node, callBack);
+        this.tree.controller.toggle(node, () => {
+          this.traverse_right(node, callBack);
+        });
       } else {
         this.tree.controller.toggle_select(node, () => {
           this.end_funtion(node, callBack);
@@ -31,7 +33,7 @@ class InOrder {
     });
   }
   traverse_right(node, callBack) {
-    this.tree.controller.toggle_select(node, () => {
+    this.tree.controller.select(node, () => {
       this.traverse(node.get_right(), () => {
         this.tree.controller.toggle(node, () => {
           node.addCursorSelected();
