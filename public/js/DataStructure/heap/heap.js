@@ -2,8 +2,6 @@ class heap {
   constructor(controller, comparator) {
     this.controller = controller;
     this.comparator = comparator;
-    this.inserter = new heap_inserter(this);
-    this.deleter = new heap_deleter(this);
     this.nodes = [null];
     this.size = 1;
   }
@@ -83,24 +81,26 @@ class heap {
       return;
     }
     this.root.addCursor();
-    this.nodes[this.size - 1].addCursor();
     this.controller.makeTreat(() => {
-      this.root.addCursorSelected();
-      this.nodes[this.size - 1].addCursorSelected();
+      this.nodes[this.size - 1].addCursor();
       this.controller.makeTreat(() => {
-        var index_parent = Math.floor(this.get_size() / 2);
-        if (this.get_size() % 2 == 1) {
-          this.nodes[index_parent].set_right(new NullNode());
-        } else {
-          this.nodes[index_parent].set_left(new NullNode());
-        }
-        this.root.addCursor();
-        this.swap_value(this.nodes[1], this.nodes[this.get_size()]);
+        this.root.addCursorSelected();
+        this.nodes[this.size - 1].addCursorSelected();
         this.controller.makeTreat(() => {
-          this.heapfy(this.nodes[1]);
+          var index_parent = Math.floor(this.get_size() / 2);
+          if (this.get_size() % 2 == 1) {
+            this.nodes[index_parent].set_right(new NullNode());
+          } else {
+            this.nodes[index_parent].set_left(new NullNode());
+          }
+          this.root.addCursor();
+          this.swap_value(this.nodes[1], this.nodes[this.get_size()]);
+          this.controller.makeTreat(() => {
+            this.heapfy(this.nodes[1]);
+          });
+          this.size--;
+          this.nodes.pop();
         });
-        this.size--;
-        this.nodes.pop();
       });
     });
   }
