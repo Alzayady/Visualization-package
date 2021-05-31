@@ -1,0 +1,18 @@
+{{>header}}
+
+    <div id="top">
+        <input type="number" id ='text_input' >
+        <button id='insert' onclick="controllerObject.insert()"> Insert </button>
+        <button id='extract' onclick="controllerObject.extract()"> Extract </button>
+    </div>
+      <div class="chart" id="OrganiseChart-simple"></div>
+    <script>
+        controllerObject.setDStoHeap((a,b)=>{
+            // min heap
+             if(a==b)return 0;
+             if(a>b)return 1 ;
+             return -1;
+        });
+    </script>
+
+{{>footer}}

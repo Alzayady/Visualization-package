@@ -1,0 +1,19 @@
+{{>header}}
+   
+	 <div id ='top'>
+        <input type="number" id ='text_input' >
+        <button id='insert'    onclick="controllerObject.insert()"> Insert </button>
+        <button id='delete'    onclick="controllerObject.del()"> delete </button>
+        <button id='search'    onclick="controllerObject.search()"> search </button>
+        <button id='InOrder'   onclick="controllerObject.InOrder()" > InOrder </button>
+        <button id='PreOrder'  onclick="controllerObject.PreOrder()" > PreOrder </button>
+        <button id='PostOrder' onclick="controllerObject.PostOrder()" > PostOrder </button>
+     </div>
+     </div>
+      <div class="chart" id="OrganiseChart-simple">
+	</div>
+    <script>
+        controllerObject.setDStoBST();
+    </script>
+
+{{>footer}}

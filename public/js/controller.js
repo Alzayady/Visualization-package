@@ -1,6 +1,5 @@
 class controller {
   constructor() {
-    this.tree = new BinarySearchTree(this);
     this.buttons = [
       "insert",
       "delete",
@@ -8,10 +7,15 @@ class controller {
       "InOrder",
       "PreOrder",
       "PostOrder",
+      "extract",
     ];
   }
-  setTree(tree) {
-    this.tree = tree;
+
+  setDStoHeap(comparator) {
+    this.DS = new heap(this, comparator);
+  }
+  setDStoBST() {
+    this.DS = new BinarySearchTree(this);
   }
   get_value() {
     var value = document.getElementById("text_input").value;
@@ -20,50 +24,56 @@ class controller {
     return value;
   }
   makeTreat(callback) {
-    new Treant(this.tree.root.getWrapperRoot(), callback, $);
+    new Treant(this.DS.root.getWrapperRoot(), callback, $);
   }
   insert = () => {
     var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
-      this.tree.insert(value);
+      console.log(this.DS);
+      this.DS.insert(value);
     }
   };
+
   del = () => {
     var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
-      this.tree.delete(value);
+      this.DS.delete(value);
     }
+  };
+  extract = () => {
+    this.disableAll();
+    this.DS.extract();
   };
   search = () => {
     var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
-      this.tree.search(value);
+      this.DS.search(value);
     }
   };
 
   InOrder = () => {
-    if (this.tree.noRoot()) {
+    if (this.DS.noRoot()) {
       return;
     }
     this.disableAll();
-    this.tree.InOrderTraverse();
+    this.DS.InOrderTraverse();
   };
   PreOrder = () => {
-    if (this.tree.noRoot()) {
+    if (this.DS.noRoot()) {
       return;
     }
     this.disableAll();
-    this.tree.PreOrderTraverse();
+    this.DS.PreOrderTraverse();
   };
   PostOrder = () => {
-    if (this.tree.noRoot()) {
+    if (this.DS.noRoot()) {
       return;
     }
     this.disableAll();
-    this.tree.PostOrderTraverse();
+    this.DS.PostOrderTraverse();
   };
 
   disableAll() {
@@ -74,7 +84,9 @@ class controller {
   }
   set_buttons(value) {
     this.buttons.forEach((button) => {
-      document.getElementById(button).disabled = value;
+      if (document.getElementById(button) != null) {
+        document.getElementById(button).disabled = value;
+      }
     });
   }
   endProcess() {
@@ -110,23 +122,3 @@ class controller {
 }
 
 let controllerObject = new controller();
-
-add = () => {
-  controllerObject.insert();
-};
-
-del = () => {
-  controllerObject.del();
-};
-search = () => {
-  controllerObject.search();
-};
-InOrderTraverse = () => {
-  controllerObject.InOrder();
-};
-PreOrderTraverse = () => {
-  controllerObject.PreOrder();
-};
-PostOrderTraverse = () => {
-  controllerObject.PostOrder();
-};

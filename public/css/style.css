@@ -14,7 +14,7 @@
     height: 60px;
     top: -4px;
 }
-#insert,#delete,#search{
+#insert,#delete,#search,#extract{
     position: relative;
     border-radius: 25%;
     padding: 10px ;

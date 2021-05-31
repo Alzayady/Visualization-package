@@ -10,9 +10,15 @@ class Node {
   }
   set_left(left) {
     this.left = left;
+    if (!this.has_right()) {
+      this.right = new NullNode();
+    }
   }
   set_right(right) {
     this.right = right;
+    if (!this.has_left()) {
+      this.left = new NullNode();
+    }
   }
   set_value(value) {
     this.value = value;
