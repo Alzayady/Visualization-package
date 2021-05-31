@@ -1,24 +1,45 @@
 {{>header}}
     
 
-<div class="container">
-   <div class="jumbotron" >
-        <div>
 
-                <form action="/BST" method="get">
+<div class="container full_height " style="height: 100%; width:100%" >
+
+        <div class="card" style="width: 18rem;margin: 150px;">
+        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4ZQTJpOOtgWiJvH-Upo5Bz0ruxmn0l0Oq_A&usqp=CAU" alt="Card image cap">
+        <div class="card-body">
+        <form action="/BST" method="get" class="forms">
+                 <button class="btn btn-primary"> view</button>
+         </form> 
+                        </div>
+        </div>
+
+   {{!-- <div class="jumbotron p-3 mb-2 bg-primary text-white "  style="margin:50px">
+
+                <form action="/BST" method="get" class="forms">
                         <button class="btn btn-primary"> BST</button>
                 </form> 
 
+
+
+   </div> --}}
+    <div class="card" style="width: 18rem;margin: 150px;">
+        <img class="card-img-top" src="https://cdn.dribbble.com/users/7162/screenshots/7720374/heap-logo_4x.png" alt="Card image cap">
+        <div class="card-body">
+         <form action="/heap" method="get" class="forms">
+                        <button class="btn btn-primary"> view</button>
+        </form> 
+         </div>
         </div>
 
-         <div>
 
-                <form action="/heap" method="get">
+   {{!-- <div class="jumbotron p-3 mb-2 bg-dark text-white "style="margin:50px" >
+
+               
+                <form action="/heap" method="get" class="forms">
                         <button class="btn btn-primary"> heap</button>
                 </form> 
 
-        </div>
-   </div>
+   </div> --}}
 </div>
 
        

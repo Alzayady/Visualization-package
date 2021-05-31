@@ -61,4 +61,22 @@
     height: 60px;
     border-radius: 60px;
   }
+  .forms{
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em
+  }
+  .back {
+    background-image: url("https://3.bp.blogspot.com/-GQdXZYTeY80/WAsinlu3UaI/AAAAAAAAHpE/4VNvl3IVdW8IPCnHfvpHdbRYQ6dKlY-7wCLcB/s1600/Hacker%2BBackground%2B1.jpg");
+    background-color: #cccccc;
+   }
+   html, body {
+    height: 100%;
+  }
+  
+  .full-height {
+    height: 100%;
+  }
+  
+   
   
