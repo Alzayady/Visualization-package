@@ -1,2 +1,29 @@
     </body>
 </html>
+<script>
+        const input = document.getElementById('text_input');
+         function constrain(e) {  
+                var str = input.value;
+                if(str.length>3){
+                    str = str.slice(0,str.length-1);
+                    input.value = str;
+                    return
+                }
+                if(e.data>='0' && e.data<='9' || e.data=='-'){
+                if(e.data=='-'){
+                    if(str.length!=1){
+                            str = str.slice(0,str.length-1);
+                            input.value = str;
+                    }
+                }
+                }else{
+                    str = str.slice(0,str.length-1);
+                    input.value = str;
+                }
+            }
+            
+        if(input!=null){
+            input.addEventListener('input', constrain);
+           
+        }
+</script>

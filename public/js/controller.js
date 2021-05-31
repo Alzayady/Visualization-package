@@ -28,6 +28,7 @@ class controller {
   }
   insert = () => {
     var value = this.get_value();
+
     if (value || value === 0) {
       this.disableAll();
       console.log(this.DS);
