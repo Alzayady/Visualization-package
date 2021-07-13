@@ -3,9 +3,13 @@ class Node {
     this.value = value;
   }
   get_left() {
+    if(!this.has_left())
+          return new NullNode();
     return this.left;
   }
   get_right() {
+    if(!this.has_right())
+          return new NullNode();
     return this.right;
   }
   set_left(left) {
@@ -56,6 +60,9 @@ class Node {
     return false;
   }
 
+  has_value(value){
+    return this.value == value;
+  }
   makePsudo() {
     this.IsPsudo = true;
   }

@@ -7,6 +7,7 @@ class BinarySearchTree {
     this.InOrder = new InOrder(this);
     this.PreOrder = new PreOrder(this);
     this.PostOrder = new PostOrder(this);
+    this.root = new NullNode();
   }
 
   // insert //
@@ -55,4 +56,14 @@ class BinarySearchTree {
     }
     this.printLastTree();
   }
+  toggle(node , callback){
+      this.controller.toggle(node,callback);
+  }
+  toggle_select(node , callback){
+    this.controller.toggle_select(node,callback)
+  }
+  out_of_tree(node){
+    return node.IsPsudo()
+  }
+
 }

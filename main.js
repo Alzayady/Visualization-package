@@ -24,3 +24,7 @@ app.get("/heap", (req, res) => {
 app.listen(port, () => {
   console.log("connected");
 });
+
+// setTimeout((a = 10 )=>{
+//     console.log(a+10);
+// },200);

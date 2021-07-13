@@ -40,7 +40,7 @@ class controller {
     var value = this.get_value();
     if (value || value === 0) {
       this.disableAll();
-      this.DS.delete(value);
+      this.DS.Deleter.delete(this.DS,value);
     }
   };
   extract = () => {

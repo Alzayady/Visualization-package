@@ -17,6 +17,9 @@ class NullNode {
       },
     };
   }
+  has_value(value){
+    return false;
+  }
   getWrapperRoot() {
     let wrappedRoot = {
       chart: {
